@@ -1,0 +1,14 @@
+   [Unit]
+   Description=OTA Update Daemon
+   After=network.target
+
+   [Service]
+   Type=simple
+   User=root
+   WorkingDirectory=/opt/ota
+   ExecStart=/usr/bin/python3 -m src.main --config /etc/ota/config.yml
+   Restart=on-failure
+   RestartSec=5s
+
+   [Install]
+   WantedBy=multi-user.target
