@@ -1,0 +1,131 @@
+# OTA Daemon Configuration (Example)
+
+# Product Information
+product:
+  type: "robot-ai-standard"  # Product type identifier
+  version_file: "/etc/robot-ai/version"  # Path to version file
+
+# Network Configuration
+network:
+  server_url: "https://updates.example.com"  # OTA server URL
+  timeout: 30  # Network timeout in seconds
+  retry:
+    max_attempts: 3  # Maximum number of retry attempts
+    backoff_factor: 2  # Exponential backoff factor
+
+# Storage Configuration
+storage:
+  backup_dir: "/var/lib/ota/backups"  # Backup storage directory
+  download_dir: "/var/lib/ota/downloads"  # Update package download directory
+  cache_dir: "/var/lib/ota/cache"  # Cache directory for manifests
+  db_path: "/var/lib/ota/scheduler.db"  # SQLite database for scheduler
+  max_backups: 2  # Maximum number of backups to keep
+
+# API Configuration
+api:
+  host: "0.0.0.0"  # API server host
+  port: 5000  # API server port
+  keys:
+    admin:
+      key: "admin-key-example"  # Replace with secure key
+      permissions: ["status", "check", "apply"]
+    readonly:
+      key: "readonly-key-example"  # Replace with secure key
+      permissions: ["status"]
+
+# Scheduler Configuration
+scheduler:
+  enabled: true  # Enable scheduled updates
+  check_hour_min: 3  # Minimum hour for checks (3 AM)
+  check_hour_max: 4  # Maximum hour for checks (4 AM)
+  auto_apply: true  # Automatically apply updates when found
+  max_backoff: 64  # Maximum backoff factor (in days)
+
+# Validation Configuration
+validation:
+  enabled: true  # Enable post-update validation
+  timeout: 300  # Validation timeout in seconds
+  
+  # Critical services to check after update
+  critical_services:
+    - name: "robot-ai"
+      type: "systemd"
+    - name: "robot-ai-web"
+      type: "systemd"
+    - name: "127.0.0.1:8000"
+      type: "socket"
+    - name: "python3 robot-ai-server.py"
+      type: "process"
+  
+  # Critical files to check after update
+  critical_files:
+    - path: "/opt/robot-ai/robot-ai-server.py"
+      permission: "755"
+    - path: "/opt/robot-ai/config/main.yml"
+    - path: "/etc/robot-ai/version"
+  
+  # Configuration files to validate
+  config_files:
+    - path: "/opt/robot-ai/config/main.yml"
+      type: "yaml"
+    - path: "/opt/robot-ai/config/services.json"
+      type: "json"
+  
+  # Product-specific validation rules
+  products:
+    robot-ai-standard:
+      critical_services:
+        - name: "robot-ai-motion"
+          type: "systemd"
+        - name: "robot-ai-vision"
+          type: "systemd"
+      critical_files:
+        - path: "/opt/robot-ai/modules/motion/motion.py"
+          permission: "755"
+        - path: "/opt/robot-ai/modules/vision/vision.py"
+          permission: "755"
+      config_files:
+        - path: "/opt/robot-ai/modules/motion/config.yml"
+          type: "yaml"
+        - path: "/opt/robot-ai/modules/vision/config.yml"
+          type: "yaml"
+    
+    robot-ai-advanced:
+      critical_services:
+        - name: "robot-ai-motion-advanced"
+          type: "systemd"
+        - name: "robot-ai-vision-advanced"
+          type: "systemd"
+        - name: "robot-ai-voice"
+          type: "systemd"
+      critical_files:
+        - path: "/opt/robot-ai/modules/motion/motion_advanced.py"
+          permission: "755"
+        - path: "/opt/robot-ai/modules/vision/vision_advanced.py"
+          permission: "755"
+        - path: "/opt/robot-ai/modules/voice/voice.py"
+          permission: "755"
+      config_files:
+        - path: "/opt/robot-ai/modules/motion/config_advanced.yml"
+          type: "yaml"
+        - path: "/opt/robot-ai/modules/vision/config_advanced.yml"
+          type: "yaml"
+        - path: "/opt/robot-ai/modules/voice/config.yml"
+          type: "yaml"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+  file: "/var/log/ota/ota.log"  # Log file path
+  max_size_mb: 10  # Maximum log file size in MB
+  backup_count: 5  # Number of log files to keep
+  
+  # Log rotation settings
+  rotation:
+    when: "midnight"  # When to rotate logs (midnight, size)
+    interval: 1  # Rotation interval
+
+# Security Configuration
+security:
+  signature_verification: true  # Verify package signatures
+  public_key_path: "/etc/ota/keys/public.pem"  # Path to public key for verification 
