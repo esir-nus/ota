@@ -1,4 +1,4 @@
-echo '# BackupManager module for OTA daemon
+# BackupManager module for OTA daemon
 class BackupManager:
     """Handles system backup and restore operations."""
     
@@ -15,4 +15,4 @@ class BackupManager:
     def restore_backup(self, backup_id):
         """Restore system from a backup."""
         # This is a placeholder for the actual implementation
-        return True' > src/update/backup/backup.py
+        return True

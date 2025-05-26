@@ -1,0 +1,18 @@
+{
+  "version": "1.2.3",
+  "product_type": "robot-ai-standard",
+  "release_date": "2025-05-24T10:18:28.832210",
+  "release_notes": "Hello let's update. yes let's do that",
+  "download_url": "",
+  "checksum": "to_be_calculated",
+  "size": 0,
+  "critical_update": false,
+  "rollback_supported": true,
+  "dependencies": [],
+  "post_install_actions": [
+    {
+      "type": "restart_service",
+      "service": "robot-ai"
+    }
+  ]
+}

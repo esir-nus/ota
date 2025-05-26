@@ -568,4 +568,31 @@ class UpdateValidator:
                            missing=config_results['missing_configs'],
                            invalid=config_results['invalid_configs'])
         
-        return results 
+        return results
+    
+    def validate_update(self, expected_version: Optional[str] = None) -> bool:
+        """Validate the system after an update.
+        
+        This method checks critical services, files, and configurations
+        to determine if the update was successful.
+        
+        Args:
+            expected_version: Expected version after update
+            
+        Returns:
+            bool: True if validation passes, False otherwise
+        """
+        logger.info("Validating system after update", expected_version=expected_version)
+        
+        # Run comprehensive system validation
+        validation_results = self.validate_system(expected_version)
+        
+        # Check if validation passed
+        validation_passed = validation_results.get('success', False)
+        
+        if validation_passed:
+            logger.info("System validation passed")
+        else:
+            logger.error("System validation failed", failures=validation_results.get('failures', []))
+        
+        return validation_passed 

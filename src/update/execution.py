@@ -1,4 +1,4 @@
-echo '# UpdateExecutor module for OTA daemon
+# UpdateExecutor module for OTA daemon
 class UpdateExecutor:
     """Handles update execution and installation."""
     
@@ -10,4 +10,4 @@ class UpdateExecutor:
         """Execute the update process."""
         # This is a placeholder for the actual implementation
         self.current_update = update_info
-        return True' > src/update/execution.py
+        return True

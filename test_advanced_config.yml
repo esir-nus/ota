@@ -1,0 +1,22 @@
+product:
+  type: robot-ai-advanced
+  version_file: /etc/robot-ai/version
+storage:
+  backup_dir: /var/lib/ota/backups
+  cache_dir: /var/lib/ota/cache
+  download_dir: /var/lib/ota/downloads
+validation:
+  critical_files:
+  - path: /opt/robot-ai/modules/motion/motion_advanced.py
+    permission: '755'
+  - path: /opt/robot-ai/modules/vision/vision_advanced.py
+    permission: '755'
+  - path: /opt/robot-ai/modules/voice/voice.py
+    permission: '755'
+  critical_services:
+  - name: robot-ai-motion-advanced
+    type: systemd
+  - name: robot-ai-vision-advanced
+    type: systemd
+  - name: robot-ai-voice
+    type: systemd

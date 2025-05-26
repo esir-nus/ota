@@ -1,0 +1,15 @@
+{
+  "product_type": "robot-ai-advanced",
+  "version": "2.0.0",
+  "release_date": "2025-05-22T18:00:00Z",
+  "release_notes": "Test update for advanced product",
+  "update_url": "https://example.com/updates/robot-ai-advanced-2.0.0.tar.gz",
+  "checksum": "abc123checksum",
+  "signature": "abc123signature",
+  "dependencies": [],
+  "compatibility": {
+    "min_version": "1.0.0",
+    "max_version": "1.9.9"
+  },
+  "created_by": "OTA Test System"
+}
