@@ -50,3 +50,10 @@ Thumbs.db
 /var/lib/ota/downloads/
 /var/lib/ota/cache/
 /var/lib/ota/db/ 
+
+# Ignore specific test files
+Test_guide.md
+testv1.2.3
+
+# Ignore Cursor IDE configuration
+.cursor/
