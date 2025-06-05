@@ -11,7 +11,7 @@ def test_status_endpoint():
     response = requests.get(url, headers=headers)
     print(f"Status Code: {response.status_code}")
     print(f"Response: {json.dumps(response.json(), indent=2)}")
-    return response.status_code == 200
+    assert response.status_code == 200
 
 def test_check_endpoint():
     """Test the check endpoint."""
@@ -22,7 +22,7 @@ def test_check_endpoint():
     response = requests.post(url, headers=headers)
     print(f"Status Code: {response.status_code}")
     print(f"Response: {json.dumps(response.json(), indent=2)}")
-    return response.status_code == 200
+    assert response.status_code == 200
 
 def test_apply_endpoint():
     """Test the apply endpoint."""
@@ -33,7 +33,7 @@ def test_apply_endpoint():
     response = requests.post(url, headers=headers)
     print(f"Status Code: {response.status_code}")
     print(f"Response: {json.dumps(response.json(), indent=2)}")
-    return response.status_code == 200
+    assert response.status_code == 200
 
 def main():
     """Run all tests."""
